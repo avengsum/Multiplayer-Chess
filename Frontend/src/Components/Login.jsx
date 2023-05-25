@@ -23,8 +23,16 @@ const Login = () => {
     }
   })
 
-  const handleSubmit = () => {
-    axios.get('http://localhost:8000/register')
+  const handleSubmit = async () => {
+    try {
+     await axios.post('http://127.0.0.1:3000/login', {
+      email:formik.values.email,
+      password:formik.values.password
+    });
+    alert("login succesfull")
+    } catch (error) {
+      alert("login failed")
+    }
   }
 
     return(
