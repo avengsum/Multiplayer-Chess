@@ -5,6 +5,7 @@ const mongoose = require('mongoose')
 const userModel = require('./models')
 require('dotenv').config()
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 
 const port = process.env.PORT || 3000
 
@@ -32,6 +33,8 @@ mongoose.connect(process.env.DATABASE,Option)
 //    console.log("Connected successfully")
 //});
 
+const jwtSecret = "vchxfxnxxfxtffh"
+
 
 app.post('/register', async (req,res) => {
    const {name , email , password} = req.body
@@ -47,12 +50,30 @@ app.post('/register', async (req,res) => {
    } catch (error) {
     res.status(422).json(error)
    }
-
-   
-
-   
-
 });
+
+app.post('/login',async (req,res) => {
+    const {email, password} = req.body
+
+    const user = await userModel.findOne({email});
+
+    if(user){
+        const passOk = bcrypt.compareSync(password,user.password);
+        if(passOk){
+            jwt.sign({email:user.email,id:user._id},jwtSecret,{}, (err,token) => {
+                if(err) throw err;
+
+                res.cookie('token',token).json('pass ok')
+            });
+        }
+        else{
+            res.status(422).json("pass not ok")
+        }
+    }
+    else{
+        res.json('not found')
+    }
+})
 
 
 app.listen(port,() => {
