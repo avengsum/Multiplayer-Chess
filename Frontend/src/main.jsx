@@ -6,13 +6,15 @@ import { createBrowserRouter , RouterProvider , Outlet } from 'react-router-dom'
 import Login from './Components/Login.jsx'
 import Register from './Components/Register.jsx'
 import axios from 'axios'
+import Choose from './Components/Choose.jsx'
+import Create from './Components/Create.jsx'
 
-axios.defaults.baseURL =  'http://localhost:8000'
+//axios.defaults.baseURL =  'http://localhost:8000'
 
 const AppLayout = () => {
   return(
   <React.Fragment>
-    <App />
+    <Create />
     <Outlet />
   </React.Fragment>
   )
@@ -30,6 +32,14 @@ const approuter = createBrowserRouter([
       path:'/login',
       element:<Login />
     },
+    {
+      path:'/choose',
+      element:<Choose />
+    },{
+      path:'/create',
+      element:<Create />
+    }
+
 
   ]
 
