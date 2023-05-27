@@ -22,10 +22,18 @@ const RoomScheme = new mongoose.Schema({
         required:true,
     },
     RoomName:{
-        type:s
+        type:String,
+        required:true,
+    },
+    RoomDescription:{
+        type:String,
+        required:true
     }
 })
+
+const Room = mongoose.model("Room",RoomScheme)
 
 const User = mongoose.model("User",UserScheme)
 
 module.exports = User;
+module.exports = Room;

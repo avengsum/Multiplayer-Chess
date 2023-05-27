@@ -6,6 +6,7 @@ const userModel = require('./models')
 require('dotenv').config()
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const Room = require('./models')
 
 const port = process.env.PORT || 3000
 
@@ -73,6 +74,16 @@ app.post('/login',async (req,res) => {
     else{
         res.json('not found')
     }
+})
+
+app.post('/createRoom',(req,res) => {
+    const {CreatorName,RoomName,RoomDescription} = req.body
+    const user = {
+        CreatorName,
+        RoomName,
+        RoomDescription
+    }
+    res.json(user)
 })
 
 
