@@ -24,11 +24,16 @@ const Create = () => {
   })
 
   const handleSubmit = () => {
-    axios.post('http://127.0.0.1:3000/createRoom',{
+    try {
+      axios.post('/createRoom',{
       CreatorName : formik.values.CreatorName,
       RoomName : formik.values.RoomName,
       RoomDescription : formik.values.RoomDescription,
     })
+    alert("Room created")
+    } catch (error) {
+      alert("There is an error")
+    }
   }
 
 

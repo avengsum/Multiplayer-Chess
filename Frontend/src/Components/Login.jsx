@@ -25,7 +25,7 @@ const Login = () => {
 
   const handleSubmit = async () => {
     try {
-     await axios.post('http://127.0.0.1:3000/login', {
+     await axios.post('/login', {
       email:formik.values.email,
       password:formik.values.password
     });
