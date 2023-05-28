@@ -8,13 +8,14 @@ import Register from './Components/Register.jsx'
 import axios from 'axios'
 import Choose from './Components/Choose.jsx'
 import Create from './Components/Create.jsx'
+import Chess from './Components/Chess.jsx'
 
-//axios.defaults.baseURL =  'http://localhost:8000'
+axios.defaults.baseURL =  'http://localhost:3000'
 
 const AppLayout = () => {
   return(
   <React.Fragment>
-    <Create />
+    <Chess />
     <Outlet />
   </React.Fragment>
   )

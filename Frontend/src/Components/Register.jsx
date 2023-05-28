@@ -25,13 +25,18 @@ const formik = useFormik({
   })
 
   console.log()
-  const handleSubmit = () => {
-    axios.post('http://127.0.0.1:3000/register',{
+  const handleSubmit = async () => {
+    try {
+      await axios.post('/register',{
         name:formik.values.name,
         email:formik.values.email,
         password:formik.values.password
 
     })
+    alert("register succesfull now login")
+    } catch (error) {
+      alert("there is an error")
+    }
 }
 
     return(
