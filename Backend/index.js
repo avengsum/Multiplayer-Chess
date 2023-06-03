@@ -6,7 +6,9 @@ const userModel = require('./models')
 require('dotenv').config()
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-const Room = require('./models')
+const RoomModel = require('./models');
+const { Server } = require('socket.io')
+const http = require('http')
 
 const port = process.env.PORT || 3000
 
@@ -76,17 +78,38 @@ app.post('/login',async (req,res) => {
     }
 })
 
-app.post('/createRoom',(req,res) => {
+app.post('/createRoom', async (req,res) => {
     const {CreatorName,RoomName,RoomDescription} = req.body
-    const user = {
-        CreatorName,
-        RoomName,
-        RoomDescription
+    try {
+        const Room = await RoomModel.create({
+            CreatorName,
+            RoomName,
+            RoomDescription
+        });
+        res.json(Room)
+        
+    } catch (error) {
+        res.json(error)
     }
-    res.json(user)
+})
+
+const httpServer = http.createServer(app);
+
+const io = new Server(httpServer);
+
+io.on("connection",(socket) => {
+    console.log("user is connected")
+
+    socket.on('disconnect',() => {
+        console.log("user is disconnected")
+    })
+});
+
+
+
+httpServer.listen(port, () => {
+    console.log(`listening on ${port}`)
 })
 
 
-app.listen(port,() => {
-    console.log(`server is running at port ${process.env.PORT}`)
-})
+

@@ -8,14 +8,15 @@ import Register from './Components/Register.jsx'
 import axios from 'axios'
 import Choose from './Components/Choose.jsx'
 import Create from './Components/Create.jsx'
-import Chess from './Components/Chess.jsx'
+import ChessUI from './Components/ChessUI.jsx'
+import ChooseHome from './Components/ChooseHome.jsx'
 
 axios.defaults.baseURL =  'http://localhost:3000'
 
 const AppLayout = () => {
   return(
   <React.Fragment>
-    <Chess />
+    <ChooseHome />
     <Outlet />
   </React.Fragment>
   )
@@ -47,5 +48,5 @@ const approuter = createBrowserRouter([
   }
 ])
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(<RouterProvider router={approuter} />);
